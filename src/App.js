@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import HomeMenu from "./components/HomeMenu";
+import PDFViewer from "./components/PDFViewer";
 
 function App() {
+  const [selectedPage, setSelectedPage] = useState(null);
+
+  const handleBack = () => {
+    setSelectedPage(null);
+    window.scrollTo(0, 0);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ backgroundColor: "#0a0a0a", minHeight: "100vh" }}>
+      {selectedPage === null ? (
+        <HomeMenu onSelectSection={(page) => setSelectedPage(page)} />
+      ) : (
+        <PDFViewer initialPage={selectedPage} onBack={handleBack} />
+      )}
     </div>
   );
 }
